@@ -12,6 +12,7 @@
 
     <link href="dist/bootstrap/5.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="dist/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">
 
     <link href="st/primaryStyles.css" rel="stylesheet">
     <link href="st/ststyles.css" rel="stylesheet">
@@ -20,7 +21,8 @@
     <link href="st/cover.css" rel="stylesheet">
 </head>
 
-<body class="d-flex h-100  text-bg-dark">
+<!-- d-flex h-100 -->
+<body class=" text-bg-dark">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
         <symbol id="check2" viewBox="0 0 16 16">
             <path
@@ -90,7 +92,8 @@
     </div>
 
 
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <!-- cover-container d-flex w-100 h-100 p-3 mx-auto flex-column  -->
+    <div class="user-select-none">
         <header class="mb-auto">
             <div>
                 <h3 class="float-md-start mb-0">Free QR Code Generator &amp; Scanner</h3>
@@ -124,19 +127,34 @@
             <div class="container d-none" id="scanner">                
                 <div class="row">
                     <div id="reader"></div> <!-- Scanner area -->
-                    <p><strong>Scanned QR Code:</strong> <span id="result">None</span></p>
+                    <p><strong>Scanned QR Code:</strong><br><span id="result">None</span></p>
                     
-                    <button onclick="startScanner()">Start Scanner</button>
-                    <button onclick="stopScanner()">Stop Scanner</button>
-                    <br><br>
+                    <button class="btn btn-success mb-3" onclick="startScanner()">Start Scanner</button>
+                    <button class="btn btn-danger mb-3" onclick="stopScanner()">Stop Scanner</button>
                     
-                    <input type="file" id="qrFile" accept="image/*" />
-                    <button onclick="scanFromFile()">Scan from Image</button>
+                    
+                    <input class="form-control mb-3" type="file" id="qrFile" accept="image/*" />
+                    <button class="btn btn-primary" onclick="scanFromFile()">Scan from Image</button>
                 </div>
             </div>
 
             <div class="container d-none" id="generator">
                 <div class="row">
+
+                    <div class="col-12 mb-4">
+                        <label for="qrType" class="form-label">Select QR Code Type</label>
+                        <select class="selectpicker form-control show-tick" id="qrType">
+                            <option value="text" data-icon="bi bi-file-text">Text</option>
+                            <option value="url" data-icon="bi bi-link-45deg">URL</option>
+                            <option value="email" data-icon="bi bi-envelope">Email</option>
+                            <option value="phone" data-icon="bi bi-telephone">Phone</option>
+                            <option value="sms" data-icon="bi bi-chat-dots">SMS</option>
+                            <option value="wifi" data-icon="bi bi-wifi">WiFi</option>
+                            <option value="whatsapp" data-icon="bi bi-whatsapp">WhatsApp</option>
+                            <option value="vcard" data-icon="bi bi-person-vcard">vCard</option>
+                            <option value="geo" data-icon="bi bi-geo-alt">Geo Location</option>
+                        </select>
+                    </div>
                     <div class="col-12" id="generic-input">
                         <label for="text" class="form-label">Enter content for QR Code (Max. 300 Characters)</label>
                         <textarea type="text" id="textInput" class="form-control" rows="5" maxlength="300" placeholder="Enter content for QR Code"></textarea>
@@ -164,6 +182,7 @@
     <script src="dist/jquery/jquery-3.7.1.min.js"></script>
     <script src="dist/popper/popper.min.js"></script>
     <script src="dist/bootstrap/5.3/js/bootstrap.min.js"></script>
+    <script src="dist/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="dist/qr-code-js/qrcode.min.js"></script>
     <script src="dist/html5-qrcode.min.js"></script>
 

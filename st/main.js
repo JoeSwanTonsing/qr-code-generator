@@ -1,8 +1,9 @@
 $(document).ready(function () {
+    // $('.selectpicker').selectpicker();
+    $('#qrType').selectpicker();
+
     $('input[name="qroptions"]').on('change', function () {
         let selectedValue = $(this).val();
-        console.log("Selected option:", selectedValue);
-
         $('#result').html('');
         let qrCodeDiv = document.getElementById("qrcode");
         let downloadBtn = document.getElementById("downloadBtn");
