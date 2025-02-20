@@ -6,9 +6,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="QR Code Generator">
+    <meta name="description" content="Free QR Code Generator & Scanner">
     <meta name="author" content="Suan Tonsing">
-    <title>QR Code Generator</title>
+    <title>QR Code Generator &amp; Scanner</title>
 
     <link href="dist/bootstrap/5.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
@@ -93,30 +93,53 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">QR Code Generator</h3>
+                <h3 class="float-md-start mb-0">Free QR Code Generator &amp; Scanner</h3>
             </div>
         </header>
 
         <main class="px-3">
 
-            <div class="container">
+            <div class="container mb-4">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="user-select-none">What do you want to do?</p>
+                    </div>
 
+                    <div class="col-12">
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="qroptions" id="optScan" value="scanQR">
+                            <label class="form-check-label" for="optScan">Scan QR Code</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="qroptions" id="optGen" value="genQR">
+                            <label class="form-check-label" for="optGen">Generate QR Code</label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container d-none" id="scanner">                
                 <div class="row">
                     <div id="reader"></div> <!-- Scanner area -->
-    <p><strong>Scanned QR Code:</strong> <span id="result">None</span></p>
-
-    <button onclick="startScanner()">Start Scanner</button>
-    <button onclick="stopScanner()">Stop Scanner</button>
-    <br><br>
-
-    <input type="file" id="qrFile" accept="image/*" />
-    <button onclick="scanFromFile()">Scan from Image</button>
+                    <p><strong>Scanned QR Code:</strong> <span id="result">None</span></p>
+                    
+                    <button onclick="startScanner()">Start Scanner</button>
+                    <button onclick="stopScanner()">Stop Scanner</button>
+                    <br><br>
+                    
+                    <input type="file" id="qrFile" accept="image/*" />
+                    <button onclick="scanFromFile()">Scan from Image</button>
                 </div>
+            </div>
 
+            <div class="container d-none" id="generator">
                 <div class="row">
                     <div class="col-12" id="generic-input">
                         <label for="text" class="form-label">Enter content for QR Code (Max. 300 Characters)</label>
-                        <textarea type="text" id="text" class="form-control" rows="5" maxlength="300" placeholder="Enter content for QR Code"></textarea>
+                        <textarea type="text" id="textInput" class="form-control" rows="5" maxlength="300" placeholder="Enter content for QR Code"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -130,7 +153,6 @@
                         <a id="downloadBtn" class="btn btn-success" download="qrcode.png">Download QR Code</a>
                     </div>
                 </div>
-
             </div>
             
         </main>
@@ -145,41 +167,10 @@
     <script src="dist/qr-code-js/qrcode.min.js"></script>
     <script src="dist/html5-qrcode.min.js"></script>
 
-
     <script src="st/main.js"></script>
+    <script src="st/generator.js"></script>
+    <script src="st/scanner.js"></script>
 
-    <script>
-        let scanner;
-
-        function startScanner() {
-            scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-            scanner.render(qrCodeSuccessCallback);
-        }
-
-        function stopScanner() {
-            if (scanner) {
-                scanner.clear();
-            }
-        }
-
-        function qrCodeSuccessCallback(decodedText) {
-            document.getElementById("result").innerText = decodedText;
-            stopScanner(); // Stop scanning after success
-        }
-
-        function scanFromFile() {
-            let fileInput = document.getElementById("qrFile");
-            if (fileInput.files.length === 0) {
-                alert("Please select an image with a QR code.");
-                return;
-            }
-
-            let reader = new Html5Qrcode("reader");
-            reader.scanFile(fileInput.files[0], true)
-                .then(decodedText => document.getElementById("result").innerText = decodedText)
-                .catch(err => alert("QR Code not found in image."));
-        }
-    </script>
 </body>
 
 </html>
